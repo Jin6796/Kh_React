@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JSX소개</title>
+    <title>멀티Element생성하기</title>
+    <style>
+      .box {
+        color: red;
+      }
+    </style>
   </head>
   <body>
     <script
@@ -16,19 +21,19 @@
       src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
     ></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <div id="root"></div>
-    <style>
-      .title {
-        color: orange;
-      }
-    </style>
+    <div id="root">
+      <h1>One</h1>
+      <h1>Two</h1>
+      <h1>Three</h1>
+    </div>
     <script type="text/babel">
       const rootElement = document.getElementById("root");
-      const subject = "React";
-      const 클래스이름 = "title";
-      const props = { className: 클래스이름, children: subject };
-      const 사용자정의태그 = <h1 {...props} />;
-      const element = 사용자정의태그;
+      const element = (
+        <div
+          className="box"
+          children={React.createElement("h1", null, "Zero")}
+        />
+      );
       ReactDOM.createRoot(rootElement).render(element);
     </script>
   </body>
