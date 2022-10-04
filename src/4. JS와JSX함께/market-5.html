@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documents</title>
+</head>
+<body>
+  <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+      const root = document.getElementById("root");
+      const App = () => {
+        const [books, setBooks] = React.useState([
+          "다정소감",
+          "숨결이 바람 될 때",
+          "아버지의 해방일지"
+        ]);
+        const [publishs, setPublishs] = React.useState([
+          "2019년 12월 11일 출판",
+          "2020년 4월 27일 출판",
+          "2017년 7월 4일 출판"
+        ])
+
+        let [like, setLike] = React.useState(0);
+        let [dislike, setDislike] = React.useState(0);
+
+        const add = () => {
+          setLike(like + 1);
+        };
+        const subtract = () => {
+          setDislike(dislike + 1);
+        };
+        const edit = () => {
+          console.log("메롱");
+        };
+        return (
+          <>
+            <div className="App">
+              {books.map((book) => (
+                <div className="list">
+                  <h3>{book}</h3>
+                  <p>{publishs[0]}</p>
+                </div>
+              ))}
+            </div>
+          </>
+        );
+      };
+      ReactDOM.createRoot(root).render(<App />);
+    </script>
+</body>
+</html>

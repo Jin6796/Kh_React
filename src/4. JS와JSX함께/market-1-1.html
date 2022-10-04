@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>좋아요+-</title>
+</head>
+<body>
+  <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+      const root = document.getElementById("root");
+      const App = () => {
+        // 일반 변수와 state의 차이는?
+        // >> 데이터 변경이 발생하면 자동으로 재렌더링이 된다.
+        // let title = "책제목";
+        let [title, setTitle] = React.useState("다정소감");
+        let [like, setLike] = React.useState(0);
+        const add = () => {
+          setLike(like + 1);
+        };
+        const subtract = () =>{
+          setLike(like - 1);
+        };
+        return (
+          <>
+            <div className="App">
+              <div className="list">
+                <h3>
+                  {/* 책제목, 출판사, 출판일, 좋아요 이모지 */}
+                  {title}
+                    <span onClick={add}> 👍</span>
+                  {like}
+                    <span onClick={subtract}> 👎</span>
+                </h3>
+              </div>
+            </div>
+          </>
+        );
+      };
+      ReactDOM.createRoot(root).render(<App />);
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documents</title>
+</head>
+<body>
+  <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+      const root = document.getElementById("root");
+      const App = () => {
+        const [books, setBooks] = React.useState([
+          "다정소감",
+          "숨결이 바람 될 때",
+          "아버지의 해방일지"
+        ]);
+        const [publishs, setPublishs] = React.useState([
+          "2019년 12월 11일 출판",
+          "2020년 4월 27일 출판",
+          "2017년 7월 4일 출판"
+        ])
+        let [like, setLike] = React.useState(0);
+        let [dislike, setDislike] = React.useState(0);
+        const add = () => {
+          setLike(like + 1);
+        };
+        const subtract = () =>{
+          setDislike(dislike + 1);
+        };
+
+        // 수정하기 - 배열 .. 얕은복사
+        // 오라클 연동 - CRUD
+        // 파이어베이스 연동 - CRUD -> NodeJS, TypeScript, React, Vue.js, Angular.js
+        const bookUpdate = () => {
+          let book_copy = [...books];
+          book_copy[1] = "자바의 정석 쒯";
+          setBooks(book_copy);
+        }
+        // 정렬하기
+        function bookSort() {
+          let book_copy = [...books];
+          book_copy.sort();
+          setBooks(book_copy);
+        }
+        // 모달창
+        const Modal = () => {
+          return (
+            <div className="modal">
+              <h3>제목</h3>
+              <h4>출판일</h4>
+              <p>도서 소개</p>
+            </div>
+          );
+        }
+        return (
+          <>
+            <button onClick={bookUpdate}>제목수정</button>
+            <button onClick={bookSort}>제목정렬</button>
+            <div className="App">
+              {books.map((book, i) => (
+                <div className="list">
+                  <h3>
+                    {book}
+                    <span onClick={add}> 👍</span>{like}
+                    <span onClick={subtract}> 👎</span>{dislike}
+                  </h3>
+                  <p>{publishs[i]}</p>
+                </div>
+              ))}
+            </div>
+          </>
+        );
+      };
+      ReactDOM.createRoot(root).render(<App />);
+    </script>
+</body>
+</html>
