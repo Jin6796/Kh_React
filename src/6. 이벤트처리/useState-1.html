@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>이벤트 핸들러 4</title>
+    <title>UseState</title>
   </head>
   <body>
     <script
@@ -20,11 +20,24 @@
     <script type="text/babel"> 
       const rootElement = document.getElementById("root");
       const App = () => {
-        const [keyword, setKeyword] = React.useState("");
+        console.log("render");
+        const [keyword, setKeyword] = React.useState(()=>{
+          console.log("initialize");
+          return window.localStorage.getItem("keyword");
+        });
         const [result, setResult] = React.useState("");
         const [typing, setTyping] = React.useState(false);
 
+        // useEffect의 side effect.
+        // 의존 배열을 작성하지 않으면 매번 랜더링이 되고, 
+        // 의존 배열이 비어 있으면 최초 한 번만 호출이 됨. 
+        // 의존 배열에 상태 이름을 넣으면 그 값이 변경될 때마다 호출이 됨
+        React.useEffect(() => {
+          console.log("effect");
+          window.localStorage.getItem("keyword", keyword);
+        }, []);
         const handleChange=(event) => {
+          window.localStorage.getItem("keyword", keyword);
           setKeyword(event.target.value);
           setTyping(true);
         }
@@ -34,7 +47,7 @@
         }
         return (
           <>
-            <input onChange={handleChange} />
+            <input onChange={handleChange} value={keyword} />
             <button onClick={handleClick}>search</button>
             <p>{typing ? `Looking for ${keyword}...` : result}</p>
           </>
