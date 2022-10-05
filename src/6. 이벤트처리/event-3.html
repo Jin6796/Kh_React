@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이벤트 핸들러 3</title>
+  </head>
+  <body>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@17/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+      //input에 입력된 값을 keyword에 담아야 한다 전역변수값을 어떻게 업데이트할까?
+      //함수를 만들어서 처리해 보자
+      const state = { keyword: "", typing: false, result: "" };
+      const App = () => {
+        function handleChange(event) {
+          //alert("change");
+          //alert(event.target.value);
+          setState({ typing: true, keyword: event.target.value });
+        }
+        function handleClick() {
+          setState({
+            typing: false,
+            result: `We find results of ${state.keyword}`,
+          });
+        }
+        return (
+          <>
+            <input onChange={handleChange} />
+            <button onClick={handleClick}>search</button>
+            <p>
+              {state.typing ? `Looking for ${state.keyword}...` : state.result}
+            </p>
+          </>
+        );
+      };
+      // 전역변수값을 바꿔치기 해주는 함수 구현
+      function setState(newState) {
+        //assign은 업데이트할 때 달라진 것만 업데이트 하겠다는 의미
+        Object.assign(state, newState);
+        render();
+      }
+      // state.keyword에 아무값도 출력되지 않는다 왜냐하면 불변객체에 넣어주었기에
+      // 변하지 않으니까 render하는 코드도 함수로 넣어준다.
+      function render() {
+        ReactDOM.render(<App />, rootElement);
+      }
+      //최초 한 번은 render하도록 render함수를 호출한다.
+      render();
+    </script>
+  </body>
+</html>
