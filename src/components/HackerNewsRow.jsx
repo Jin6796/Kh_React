@@ -58,14 +58,15 @@ const HackerNewsRow = (props) => {
             <Count>댓글: {news.comments_count}개</Count>
           </CardContent>
           <Etc>
-            <i className="fas fa-user mr-1"></i>{news.user} |
-            <i className="fas fa-heart mr-1"></i> {news.points} | 
-            <i className="far fa-clock mr-1"></i> {news.time_ago} 
+            {/* <i className="fas fa-user mr-1"></i>🙍🏻‍♂️{news.user} |  */}
+            🙍🏻‍♂️{news.user} | 
+            ❤{news.points} | 
+            ⏰{news.time_ago} &nbsp;
+            <Button variant="primary" onClick={handleShow}>
+              **
+            </Button>
           </Etc>
         </CardRow>
-        <Button variant="primary" onClick={handleShow}>
-          모달
-        </Button>
       </NewsLi>
  {/*=========================[[[[[사진 업로드 테스트 모달]]]]]=========================*/}
  <Modal show={show} onHide={handleClose}>
