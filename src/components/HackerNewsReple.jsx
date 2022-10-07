@@ -29,9 +29,10 @@ const HackerNewsReple = (props) => {
     <>
       <h2>{title}</h2>
       <div>
-        {comments.map(comment => {
+        {/* map은 중괄호가 아니라 소괄호로!!!!!!! */}
+        {comments.map(comment => (
           <NewsRepleList key={comment.id} comment={comment} />
-        })}
+        ))}
       </div>
     </>
   );
