@@ -1,8 +1,10 @@
 import React from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 // 헤더에는 구글 인증(유지)을 위해 authLogic이 필요할 것
-const HackerHeader = (props) => {
+
+const HackerHeader = ({userId, onLogout}) => {
+// const HackerHeader = (props) => {
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -15,6 +17,7 @@ const HackerHeader = (props) => {
               <Link to="/hackernews" className="nav-link">해커뉴스</Link>
               <Link to="/youtube" className="nav-link">유튜브</Link>
             </Nav>
+            {onLogout && (<Button variant="primary" onClick={onLogout}>Logout</Button>)}
           </Navbar.Collapse>
         </Container>
       </Navbar>
