@@ -4,10 +4,10 @@ import HackerFooter from './HackerFooter';
 import HackerHeader from './HackerHeader';
 import HackerNewsRow from './HackerNewsRow';
 
-const HackerNews = ({authLogic}) => {
+const HackerNews = ({ authLogic, pictureUpload }) => {
   const { userId } = useParams();
   const navigate = useNavigate();
-  console.log('구글 인증 아이디: ' + userId);
+  console.log("구글 인증 아이디: " + userId);
 
   const [newsList, setNewsList] = React.useState([]);
   const onLogout = () => {
@@ -17,7 +17,7 @@ const HackerNews = ({authLogic}) => {
   const requestOptions = {
   method: 'GET',
   redirect: 'follow'
-  };
+  }
   useEffect(() => {
     authLogic.onAuthChange((user)=> {
       if(!user) {
@@ -30,21 +30,23 @@ const HackerNews = ({authLogic}) => {
   // [keyword] 키워드가 변경될 때마다 재귀 호출이 일어남
   useEffect(()=>{
       fetch("https://api.hnpwa.com/v0/news/1.json", requestOptions)
-      .then(response => response.json())
-      .then(result => {console.log(result); setNewsList(result)})
-      .catch(error => console.log('error', error));
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result); setNewsList(result)
+      })
+      .catch((error) => console.log('error', error))
   },[]);
   return (
     <>
       <HackerHeader userId={userId} onLogout={onLogout} />
         <div>
-          {newsList.map(news => (
-            <HackerNewsRow key={news.id} news={news}/>
+          {newsList.map((news) => (
+            <HackerNewsRow key={news.id} news={news} pictureUpload={pictureUpload}/>
           ))}
         </div>
       <HackerFooter />
     </>
-  );
+  )
 }
 
 export default HackerNews;

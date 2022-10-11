@@ -15,6 +15,7 @@ const HackerHeader = ({userId, onLogout}) => {
             <Nav className="me-auto">
               <Link to="/" className="nav-link">Home</Link>
               <Link to="/hackernews" className="nav-link">해커뉴스</Link>
+              <Link to="/dept" className="nav-link">부서관리</Link>
               <Link to="/youtube" className="nav-link">유튜브</Link>
             </Nav>
             {onLogout && (<Button variant="primary" onClick={onLogout}>Logout</Button>)}
