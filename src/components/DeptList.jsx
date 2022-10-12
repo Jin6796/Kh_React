@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import HackerFooter from './HackerFooter';
 import HackerHeader from './HackerHeader';
 import { jsonDeptList } from './service/dbLogic';
 // 직접 구조분해 할당 해버리기~~
 const DeptList = ({ authLogic }) => {
-  const {userId} = useParams();
-  // console.log(userId);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const userId = window.Storage.getItem("userId");
+  console.log("DeptList userId: "+userId);
+
   const [deptList, setDeptList] = useState([]);
   const onLogout = () => {
     console.log("onLogout 호출 성공");
@@ -25,11 +30,15 @@ const DeptList = ({ authLogic }) => {
       setDeptList(result.data);
     } 
     oracleDB();
-  },[])
+  },[userId])
   return (
     <>
       <HackerHeader userId={userId} onLogout={onLogout} />
-      <h2>부서 목록</h2>
+      <div className="container">
+        <div className="page-header">
+          <h2>부서관리 <i className='fa-solid fa-angles-right'></i><small> 부서목록</small></h2>
+        </div>
+      </div>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -50,6 +59,11 @@ const DeptList = ({ authLogic }) => {
           ))}
         </tbody>
       </Table>
+      <hr />
+      <div className="deptlist-footer">
+        <Button variant="warning">전체조회</Button>
+        <Button variant="success">부서등록</Button>
+      </div>
       <HackerFooter />
     </>
   );

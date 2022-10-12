@@ -15,7 +15,7 @@ const App = ({ authLogic, pictureUpload }) => {
         />
         <Route path="/dept" 
                 exact={true} 
-                element={<DeptList authLogic={authLogic} />}
+                element={<DeptList authLogic={authLogic} pictureUpload={pictureUpload} />}
         />
         <Route path="/hackernews/:userId" 
                 exact={true} 
