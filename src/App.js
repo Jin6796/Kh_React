@@ -4,6 +4,7 @@ import HackerNews from "./components/HackerNews";
 import HackerNewsReple from "./components/HackerNewsReple";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DeptList from "./components/DeptList";
+import DeptDetail from "./components/DeptDetail";
 
 const App = ({ authLogic, pictureUpload }) => {
   return (
@@ -16,6 +17,10 @@ const App = ({ authLogic, pictureUpload }) => {
         <Route path="/dept" 
                 exact={true} 
                 element={<DeptList authLogic={authLogic} pictureUpload={pictureUpload} />}
+        />
+        <Route path="/deptdetail/:deptno" 
+                exact={true} 
+                element={<DeptDetail  />}
         />
         <Route path="/hackernews/:userId" 
                 exact={true} 

@@ -1,0 +1,12 @@
+.deptlist-footer {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.page-header {
+  padding: 20px 0px;
+}
+
+.nav-link {
+  
+}

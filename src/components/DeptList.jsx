@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Modal, Table } from 'react-bootstrap';
+import DeptRow from './DeptRow';
 import HackerFooter from './HackerFooter';
 import HackerHeader from './HackerHeader';
 import { jsonDeptList } from './service/dbLogic';
@@ -81,12 +82,7 @@ const DeptList = ({ authLogic, pictureUpload }) => {
           </thead>
           <tbody>
             { deptList.map((dept, i) => (
-              <tr key={i}>
-                <td>{ i }</td>
-                <td>{ dept.DEPTNO }</td>
-                <td>{ dept.DNAME }</td>
-                <td>{ dept.LOC }</td>
-              </tr>
+              <DeptRow key={i} dept={dept} />
             ))}
           </tbody>
         </Table>
