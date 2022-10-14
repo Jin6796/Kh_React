@@ -1,40 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Form, Modal, Table } from 'react-bootstrap';
-import DeptRow from './DeptRow';
-import HackerFooter from './HackerFooter';
-import HackerHeader from './HackerHeader';
-import { jsonDeptList } from './service/dbLogic';
+import React, { useEffect, useState } from "react"
+import { Button, Form, Modal, Table } from "react-bootstrap"
+import DeptRow from "./DeptRow"
+import HackerFooter from "../page/HackerFooter"
+import HackerHeader from "../page/HackerHeader"
+import { jsonDeptList } from "../service/dbLogic"
 
 // 직접 구조분해 할당 해버리기~~
 const DeptList = ({ authLogic, pictureUpload }) => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [file, setFile] = useState({fileName: null, fileURL: null});
-  const userId = window.localStorage.getItem("userId");
-  console.log("DeptList userId: "+userId);
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+  const [file, setFile] = useState({ fileName: null, fileURL: null })
+  const userId = window.localStorage.getItem("userId")
+  console.log("DeptList userId: " + userId)
 
-  const [deptList, setDeptList] = useState([]);
+  const [deptList, setDeptList] = useState([])
   const onLogout = () => {
-    console.log("onLogout 호출 성공");
-    authLogic.logout();
+    console.log("onLogout 호출 성공")
+    authLogic.logout()
   }
   // html 렌더링 된 후 호출!
   useEffect(() => {
-    console.log("useEffect 호출");
-    const oracleDB = async() => {
-      console.log("oracleDB 호출");
-      const result = await jsonDeptList({ DEPTNO: 30, DNAME: "댄스부", LOC: "경기" });
-      console.log(result);
-      console.log(result.data);
-      console.log(result.data[1].LOC);
-      setDeptList(result.data);
-    } 
-    oracleDB();
-  },[userId])
+    console.log("useEffect 호출")
+    const oracleDB = async () => {
+      console.log("oracleDB 호출")
+      const result = await jsonDeptList({
+        DEPTNO: 30,
+        DNAME: "댄스부",
+        LOC: "경기",
+      })
+      console.log(result)
+      console.log(result.data)
+      console.log(result.data[1].LOC)
+      setDeptList(result.data)
+    }
+    oracleDB()
+  }, [userId])
   const imgChange = async (event) => {
-    console.log("imgChange 호출");
-    console.log(event.target.files[0]);
+    console.log("imgChange 호출")
+    console.log(event.target.files[0])
     const upload = await pictureUpload.upload(event.target.files[0])
     setFile({
       fileName: upload.public_id + "." + upload.format,
@@ -45,30 +49,34 @@ const DeptList = ({ authLogic, pictureUpload }) => {
     const file = uploadIMG.files[0]
     const reader = new FileReader()
     reader.onload = function (event) {
-      const img = new Image();
+      const img = new Image()
       img.src = event.target.result
       // if (img.width > 150) {
       //   //넣으려는 사진 크기에 맞춰 width값을 제한
       // }
-      img.width = 150;
-      holder.innerHTML = "";
-      holder.appendChild(img);
+      img.width = 150
+      holder.innerHTML = ""
+      holder.appendChild(img)
     }
     reader.readAsDataURL(file)
     return false
-  };
+  }
   const deptInsert = () => {
-    document.querySelector('#filename').value = file.fileName;
-    document.querySelector('#fileurl').value = file.fileURL;
-    document.querySelector('#f_dept').action = "http://localhost:9000/dept/deptInsert";
-    document.querySelector('#f_dept').submit();
-};
+    document.querySelector("#filename").value = file.fileName
+    document.querySelector("#fileurl").value = file.fileURL
+    document.querySelector("#f_dept").action =
+      "http://localhost:9000/dept/deptInsert"
+    document.querySelector("#f_dept").submit()
+  }
   return (
     <>
       <HackerHeader userId={userId} onLogout={onLogout} />
       <div className="container">
         <div className="page-header">
-          <h2>부서관리 <i className="fa-solid fa-angles-right"></i>&nbsp;<small>부서목록</small></h2>
+          <h2>
+            부서관리 <i className="fa-solid fa-angles-right"></i>&nbsp;
+            <small>부서목록</small>
+          </h2>
           <hr />
         </div>
         <Table striped bordered hover>
@@ -81,7 +89,7 @@ const DeptList = ({ authLogic, pictureUpload }) => {
             </tr>
           </thead>
           <tbody>
-            { deptList.map((dept, i) => (
+            {deptList.map((dept, i) => (
               <DeptRow key={i} dept={dept} />
             ))}
           </tbody>
@@ -89,7 +97,9 @@ const DeptList = ({ authLogic, pictureUpload }) => {
         <hr />
         <div className="deptlist-footer">
           <Button variant="warning">전체조회</Button>&nbsp;
-          <Button variant="success" onClick={handleShow}>부서등록</Button>
+          <Button variant="success" onClick={handleShow}>
+            부서등록
+          </Button>
         </div>
       </div>
 
@@ -106,11 +116,19 @@ const DeptList = ({ authLogic, pictureUpload }) => {
             {/* 부서 입력 폼 */}
             <Form.Group className="mb-3" controlId="formBasicDeptno">
               <Form.Label>부서번호</Form.Label>
-              <Form.Control type="text" name="deptno" placeholder="Enter 부서번호" />
+              <Form.Control
+                type="text"
+                name="deptno"
+                placeholder="Enter 부서번호"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicDname">
               <Form.Label>부서명</Form.Label>
-              <Form.Control type="text" name="dname" placeholder="Enter 부서명" />
+              <Form.Control
+                type="text"
+                name="dname"
+                placeholder="Enter 부서명"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicLoc">
               <Form.Label>지역</Form.Label>
@@ -131,9 +149,9 @@ const DeptList = ({ authLogic, pictureUpload }) => {
             {/* 부서 등록 이미지 미리보기 */}
             <div id="uploadImg">
               <img
-                  className="thumbNail"
-                  src="https://via.placeholder.com/200"
-                  alt="미리보기"
+                className="thumbNail"
+                src="https://via.placeholder.com/200"
+                alt="미리보기"
               />
             </div>
           </Form>
@@ -153,4 +171,4 @@ const DeptList = ({ authLogic, pictureUpload }) => {
   )
 }
 
-export default DeptList;
+export default DeptList

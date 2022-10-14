@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Button, Card } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
-import { jsonDeptList } from "./service/dbLogic"
+import { jsonDeptList } from "../service/dbLogic"
 
 const DeptDetail = (props) => {
   // DeptRow에서 쿼리 스트링으로 넘어온 부서번호 담기

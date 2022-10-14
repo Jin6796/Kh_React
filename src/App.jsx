@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router-dom"
 import LoginPage from "./components/LoginPage"
-import HackerNews from "./components/HackerNews"
-import HackerNewsReple from "./components/HackerNewsReple"
+import HackerNews from "./components/news/HackerNews"
+import HackerNewsReple from "./components/news/HackerNewsReple"
 import "bootstrap/dist/css/bootstrap.min.css"
-import DeptList from "./components/DeptList"
-import DeptDetail from "./components/DeptDetail"
-import YoutubeList from "./components/service/YoutubeList"
+import DeptList from "./components/dept/DeptList"
+import "./css/dept.css"
+import DeptDetail from "./components/dept/DeptDetail"
+import YoutubeList from "./components/youtube/YoutubeList"
 
 const App = ({ authLogic, pictureUpload }) => {
   return (
