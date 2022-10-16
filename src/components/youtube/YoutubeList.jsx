@@ -46,9 +46,9 @@ const YoutubeList = ({ authLogic }) => {
       `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${keyword}&key=AIzaSyA-mwx857fMztPfaoSHuJ2iq-tsnlGyYvQ&type=video`
     )
     .then((result) => result.data)
-    .then((data) => {
-      data.items.map(item => ({...item, id: item.id.videoId})) // 얕은 복사 - spread 연산자
-    })
+    .then((data) => (
+      data.items.map((item) => ({...item, id: item.id.videoId})) // 얕은 복사 - spread 연산자
+    ))
     .then((items) => {
       console.log(items);
       setVideos(items);
