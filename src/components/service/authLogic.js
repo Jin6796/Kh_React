@@ -25,6 +25,8 @@ class AuthLogic {
     switch (providerName) {
         case "Google":
         return this.googleProvider;
+        case "Github":
+        return this.githubProvider
         default:
         throw new Error(`not supported provider: ${providerName}`);
     }}

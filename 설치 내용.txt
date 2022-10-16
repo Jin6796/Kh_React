@@ -1,3 +1,5 @@
 npm install react-bootstrap bootstrap
 npm install react-router-dom@6
 npm install styled-components
+npm install axios
+npm i @fortawesome/fontawesome-free
