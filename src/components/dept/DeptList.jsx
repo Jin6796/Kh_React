@@ -133,10 +133,10 @@ const DeptList = ({ authLogic, pictureUpload }) => {
         </div>
         <hr />
         <div className="deptlist-footer">
-          <Button variant="warning">전체조회</Button>&nbsp;
           <Button variant="success" onClick={handleShow}>
             부서등록
           </Button>
+          <Button variant="warning">전체조회</Button>&nbsp;
         </div>
       </div>
 
@@ -194,11 +194,11 @@ const DeptList = ({ authLogic, pictureUpload }) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            닫기
-          </Button>
           <Button variant="primary" onClick={deptInsert}>
             저장
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            닫기
           </Button>
         </Modal.Footer>
       </Modal>
