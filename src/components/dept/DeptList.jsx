@@ -4,6 +4,7 @@ import DeptRow from "./DeptRow"
 import HackerFooter from "../page/HackerFooter"
 import HackerHeader from "../page/HackerHeader"
 import { jsonDeptList } from "../service/dbLogic"
+import "../../css/dept.css"
 
 // 직접 구조분해 할당 해버리기~~
 const DeptList = ({ authLogic, pictureUpload }) => {
@@ -25,13 +26,13 @@ const DeptList = ({ authLogic, pictureUpload }) => {
     const oracleDB = async () => {
       console.log("oracleDB 호출")
       const result = await jsonDeptList({
-        DEPTNO: 30,
+        DEPTNO: 60,
         DNAME: "댄스부",
         LOC: "경기",
       })
-      console.log(result)
+      // console.log(result)
       console.log(result.data)
-      console.log(result.data[1].LOC)
+      // console.log(result.data[1].LOC)
       setDeptList(result.data)
     }
     oracleDB()
@@ -68,6 +69,22 @@ const DeptList = ({ authLogic, pictureUpload }) => {
       "http://localhost:9000/dept/deptInsert"
     document.querySelector("#f_dept").submit()
   }
+  const reactSearch = () => {
+    // deptno, dname, loc 컬럼명을 저장함
+    const gubun = document.querySelector("#gubun").value;
+    const keyword = document.querySelector("#keyword").value;
+    console.log(gubun + ", " + keyword);
+    // 비동기 처리를 위해!
+    const asyncDB = async() => {
+      // 콜백 받아주고, 값이 두 개가 넘어가야 하니까 파라미터에 두 개 다 넣어주기
+      const res = await jsonDeptList({ gubun:gubun, keyword:keyword })
+      if(res.data){
+        console.log(res.data); // useState안으로 들어가게 된다.
+        
+      }
+    }
+    asyncDB();
+  } /////////// end of reactSearch
   return (
     <>
       <HackerHeader userId={userId} onLogout={onLogout} />
@@ -79,21 +96,41 @@ const DeptList = ({ authLogic, pictureUpload }) => {
           </h2>
           <hr />
         </div>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>부서번호</th>
-              <th>부서명</th>
-              <th>지역</th>
-            </tr>
-          </thead>
-          <tbody>
-            {deptList.map((dept, i) => (
-              <DeptRow key={i} dept={dept} />
-            ))}
-          </tbody>
-        </Table>
+
+        <div className="row">
+          <div className="col-2">
+            <select id="gubun" className="form-select" aria-label="분류선택">
+              <option defaultValue>분류선택</option>
+              <option value="deptno">부서번호</option>
+              <option value="dname">부서명</option>
+              <option value="loc">지역</option>
+            </select>
+          </div>
+          <div className="col-7">
+            <input id="keyword" type="text" className="form-control" placeholder="검색어를 입력하세요." />
+          </div>
+          <div className="col-3">
+            <Button id="btn_search" variant="danger" onClick={reactSearch}>검색</Button>
+          </div>
+        </div>
+        <hr />
+        <div className="dept-list">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>부서번호</th>
+                <th>부서명</th>
+                <th>지역</th>
+              </tr>
+            </thead>
+            <tbody>
+              {deptList.map((dept, i) => (
+                <DeptRow key={i} dept={dept} />
+              ))}
+            </tbody>
+          </Table>
+        </div>
         <hr />
         <div className="deptlist-footer">
           <Button variant="warning">전체조회</Button>&nbsp;
