@@ -80,6 +80,7 @@ const DeptList = ({ authLogic, pictureUpload }) => {
       const res = await jsonDeptList({ gubun:gubun, keyword:keyword })
       if(res.data){
         console.log(res.data); // useState안으로 들어가게 된다.
+        setDeptList(res.data)
         
       }
     }
@@ -133,10 +134,10 @@ const DeptList = ({ authLogic, pictureUpload }) => {
         </div>
         <hr />
         <div className="deptlist-footer">
+          <Button variant="warning">전체조회</Button>&nbsp;
           <Button variant="success" onClick={handleShow}>
             부서등록
           </Button>
-          <Button variant="warning">전체조회</Button>&nbsp;
         </div>
       </div>
 
