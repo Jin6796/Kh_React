@@ -1,0 +1,22 @@
+.noticelist-footer {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.page-header {
+  padding: 20px 0px;
+}
+
+.notice-header {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 20px;
+}
+
+.notice-list {
+  margin: 20px 0px;
+}
+
+.notice-detail {
+  display: flex;
+}

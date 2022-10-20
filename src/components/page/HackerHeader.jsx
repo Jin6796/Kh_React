@@ -14,7 +14,8 @@ const HackerHeader = ({userId, onLogout}) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Link to="/" className="nav-link">Home</Link>
-              <Link to="/hackernews" className="nav-link">해커뉴스</Link>
+              <Link to="/notice" className="nav-link">공지사항</Link>
+              <Link to="/hackernews/:userId" className="nav-link">해커뉴스</Link>
               <Link to="/dept" className="nav-link">부서관리</Link>
               <Link to="/youtube" className="nav-link">유튜브</Link>
             </Nav>
