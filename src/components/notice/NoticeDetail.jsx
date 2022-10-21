@@ -9,7 +9,3 @@ const NoticeDetail = (props) => {
 }
 
 export default NoticeDetail;
-
-
-// NoticeDetail.jsx
-// NoticeRow.jsx
