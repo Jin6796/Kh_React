@@ -33,14 +33,36 @@ const NoticeList = (props) => {
     n_date: ""
   });
   // useState(""), useState({}) > Object.keys()  // useState([]) > map처리 가능
+  // 파이어베이스에서는 라벨에 객체포맷으로 데이터를 관리함.
+  // useState({}) -> useState([])
   const [notices, setNotices] = useState({
-    "1": {n_no: 1, n_title: "공지1", n_writer: "관리자1", n_date:"2022-10-20"},
-    "2": {n_no: 2, n_title: "공지2", n_writer: "관리자2", n_date:"2022-10-21"},
-    "3": {n_no: 3, n_title: "공지3", n_writer: "관리자3", n_date:"2022-10-22"},
+    "1": {n_no: 1, n_title: "공지1", n_writer: "관리자1", n_content: "내용1", n_date:"2022-10-20"},
+    "2": {n_no: 2, n_title: "공지2", n_writer: "관리자2", n_content: "내용2", n_date:"2022-10-21"},
+    "3": {n_no: 3, n_title: "공지3", n_writer: "관리자3", n_content: "내용3", n_date:"2022-10-22"},
   })
-  const reactSearch = () => {
+  const noticeSearch = () => {
+    const gubun = document.querySelector("#gubun").value;
+    const keyword = document.querySelector("#keyword").value;
+    console.log(gubun + ", " + keyword);
 
+    let result = [];
+    if(gubun === "n_title") {
+      Object.keys(notices).map(key => (
+        notices[key].n_title && notices[key].n_title === keyword ? result.push(notices[key]):null
+      ))
+    } else if( gubun === "n_writer") {
+      Object.keys(notices).map(key => (
+        notices[key].n_writer && notices[key].n_writer === keyword ? result.push(notices[key]):null
+      ))
+    } else if( gubun === "n_content") {
+      Object.keys(notices).map(key => (
+        notices[key].n_content && notices[key].n_content === keyword ? result.push(notices[key]):null
+      ))
+    }
+    // 배열 result에는 조건 검색 결과가 담긴다.
+    setNotices(result)
   } /////////// end of reactSearch
+
   const noticeInsert = (event) => {
     // submit 사용 시 페이지 새로고침 처리 방어코드 삽입 - 주의!!!!!!
     event.preventDefault(); // 이벤트 버블링 방어코드 삽입할 것 
@@ -49,6 +71,7 @@ const NoticeList = (props) => {
     console.log(notice);
     handleClose();
   } /////////// end of noticeInsert
+
   const handleChangeForm = (event) => {
     if(event.currentTarget == null) return;
     // console.log('폼 내용 변경 발생, name: ' + event.target.name);
@@ -58,6 +81,13 @@ const NoticeList = (props) => {
       n_no: Date.now(),
       [event.target.name]: event.target.value
     })
+  }
+
+  const noticeList = () => {
+    console.log("noticeList");
+    // navigate("/notice")
+    window.location.reload();
+    // setNotices({ ...notices })
   }
   return (
     <>
@@ -84,7 +114,7 @@ const NoticeList = (props) => {
               <input id="keyword" type="text" className="form-control" placeholder="검색어를 입력하세요." />
             </div>
             <div className="col-3">
-              <Button id="btn_search" variant="danger" onClick={reactSearch}>검색</Button>
+              <Button id="btn_search" variant="danger" onClick={noticeSearch}>검색</Button>
             </div>
           </div>
           <div className="notice-list">
@@ -106,7 +136,7 @@ const NoticeList = (props) => {
         </div>
         <hr />
         <div className="noticelist-footer">
-          <Button variant="warning">전체조회</Button>&nbsp;
+          <Button variant="warning" onClick={noticeList}>전체조회</Button>&nbsp;
           <Button variant="success" onClick={handleShow}>게시글 작성</Button>
         </div>
       </div>
