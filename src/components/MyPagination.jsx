@@ -45,8 +45,7 @@ const PageSpan = styled.span`
 const MyPagination = ({ newsPerPage, totalNews, paginate}) => {
   // 페이징 처리에 필요한 숫자를 담을 배열 선언
   const pageNumbers = [];
-  let i = 0;
-  for(i=0; i<=Math.ceil(totalNews/newsPerPage); i++) {
+  for(let i=1; i<=Math.ceil(totalNews/newsPerPage); i++) {
     pageNumbers.push(i);
   }
   return (
