@@ -20,3 +20,8 @@
 .notice-detail {
   display: flex;
 }
+
+.detail-link {
+  display: flex;
+  margin: 6px;
+}

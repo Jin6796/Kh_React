@@ -6,12 +6,13 @@ import HackerHeader from "../page/HackerHeader";
 import NoticeRow from "./NoticeRow";
 import { Button, Form, Modal, Table } from 'react-bootstrap';
 import "./notice.css";
+import { useNavigate } from 'react-router-dom';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FS_APIKEY,
   authDomain: process.env.REACT_APP_FS_AUTHDOMAIN,
   // databaseURL: "https://kh-terrgym-default-rtdb.asia-southeast1.firebasedatabase.app",
-  databaseURL: "https://kh-terrgym-default-rtdb.firebaseio.com/",
+  databaseURL: "https://project01-e2f8e-default-rtdb.firebaseio.com/",
   projectId: process.env.REACT_APP_FS_PROJECTID,
   storageBucket: process.env.REACT_APP_FS_STORAGEBUCKET,
   messagingSenderId: process.env.REACT_APP_FS_MESSAGINGSENDERID,
@@ -20,8 +21,8 @@ const firebaseConfig = {
 }
 initializeApp(firebaseConfig);
 const database = getDatabase();
-
 const NoticeList = (props) => {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -101,6 +102,7 @@ const NoticeList = (props) => {
             </h2>
             <hr />
           </div>
+          {/* 검색 영역 */}
           <div className="row">
             <div className="col-2">
               <select id="gubun" className="form-select" aria-label="분류선택">
@@ -140,7 +142,7 @@ const NoticeList = (props) => {
           <Button variant="success" onClick={handleShow}>게시글 작성</Button>
         </div>
       </div>
-      {/* ============================== [[ 부서등록 모달 시작 ]] ============================== */}
+      {/* ============================== [[ 공지등록 모달 시작 ]] ============================== */}
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>공지 등록</Modal.Title>
@@ -160,7 +162,7 @@ const NoticeList = (props) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicDname">
               <Form.Label>작성 시간</Form.Label>
-              <Form.Control type="text" name="n_writer" placeholder="Enter 작성 시간" />
+              <Form.Control type="text" name="n_date" placeholder="Enter 작성 시간" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicLoc">
               <Form.Label>내용</Form.Label>
@@ -178,7 +180,7 @@ const NoticeList = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      {/* ============================== [[ 부서등록 모달 종료 ]] ============================== */}
+      {/* ============================== [[ 공지등록 모달 종료 ]] ============================== */}
       <HackerFooter />
     </>
   );

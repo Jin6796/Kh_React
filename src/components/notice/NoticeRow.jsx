@@ -7,7 +7,7 @@ const NoticeRow = ({ notice }) => {
       <tr>
         <td>{notice.n_no}</td>
         <td>
-          <Link to={"/noticdetail/"+notice.n_no} className="btn btn-primary">{notice.n_title}</Link>
+          <Link to={"/noticedetail/"+notice.n_no} className="btn btn-primary">{notice.n_title}</Link>
         </td>
         <td>{notice.n_writer}</td>
         <td>{notice.n_date}</td>
