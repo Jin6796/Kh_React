@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { setToastMsgfalse } from '../../store';
+import { useDispatch, useSelector } from "react-redux";
+import "./toast.css";
 
 const ToastDIV = styled.div`
   visibility: hidden;
@@ -18,19 +21,23 @@ const ToastDIV = styled.div`
 `;
 
 const MyToast = (props) => {
+  const status = useSelector(store => store.status)
+  const msg = useSelector(store => store.msg)
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if(true) {
       let snackbar = document.getElementById("snackbar");
       snackbar.className = "show";
       setTimeout(function(){ snackbar.className=snackbar.className.replace("show", ""); }, 3000);
       setTimeout(() => {
-
-      }, 2500)
+        dispatchEvent(setToastMsgfalse())
+      }, 5500)
     }
-  })
+  }, [status, dispatch])
   return (
     <>
-      <ToastDIV id = "snackbar">토스트메세지 출력</ToastDIV>
+      <ToastDIV id = "snackbar">{JSON.stringify(msg)}</ToastDIV>
     </>
   );
 }

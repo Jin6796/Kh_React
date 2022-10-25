@@ -11,6 +11,7 @@ import NoticeList from "./components/notice/NoticeList"
 import NoticeDetail from "./components/notice/NoticeDetail"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import DBBoardList from "./components/board/DBBoardList"
 
 const App = ({ authLogic, pictureUpload }) => {
   // 페이징 처리 추가
@@ -77,6 +78,11 @@ const App = ({ authLogic, pictureUpload }) => {
           path="/newsreple/:id"
           exact={true}
           element={<HackerNewsReple />}
+        />
+        <Route
+          path="/board"
+          exact={true}
+          element={<DBBoardList authLogic={authLogic} />}
         />
       </Routes>
     </>
