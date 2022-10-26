@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+      const Tents = () => {
+        console.log("Tents start");
+        const [num, setNum] = React.useState(0);
+        const [goods, setGoods] = React.useState([]);
+        React.useEffect(()=> {
+          fetch("tents.json")
+          .then((res)=> res.json())
+          .then((data) => {
+            console.log("텐트상품 정보 받아오기");
+            setGoods(data);
+          })
+          return () => {
+            console.log("이전 정보 청소하기");
+          }
+        }, [])
+        return(
+          <>
+            <button onClick={()=>setNum((prev) => prev+1)}>{num}</button>
+          </>
+        )
+      }
+      const App = () => {
+        return (
+          <>
+            <h3>상품목록</h3>
+            <Tents/>
+          </>
+        );
+      };
+      console.log("App end");
+      ReactDOM.createRoot(rootElement).render(<App />);
+    </script>
+  </body>
+</html>
